@@ -1,0 +1,35 @@
+{% extends "subjects/subject_base.html" %}
+{% block presubject %}
+<h1>{{subject.name}}</h1>
+<h2> Followers : {{subject.followers.count}}</h2>
+
+
+  <div class="content">
+
+
+				{% if user in subject.followers.all %}
+					<a href="{% url 'subjects:unfollow' slug=subject.slug %}" class="btn btn-lg btn-fill btn-warning"><span class="glyphicon glyphicon-remove-circle"></span> Unfollow</a>
+				{% else %}
+					<a href="{% url 'subjects:follow' slug=subject.slug %}" class="btn btn-lg btn-fill btn-warning"><span class="glyphicon glyphicon-ok-circle"></span> Follow</a>
+				{% endif %}
+
+</div>
+{% endblock %}
+
+
+
+{% block subject_content %}
+
+<div class="col-md-8">
+	{% if subject.posts.count == 0 %}
+	<h2>No posts in this group yet!</h2>
+
+	{% else %}
+
+		{% for post in subject.posts.all %}
+			{% include "posts/_post.html" %}
+		{% endfor %}
+
+	{% endif %}
+</div>
+{% endblock %}

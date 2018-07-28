@@ -1,0 +1,44 @@
+{% extends "subjects/subject_base.html" %}
+{% block presubject  %}
+<div class="col-md-4">
+	<div class="content">
+		{% if user.is_authenticated %}
+		<h2>
+			Welcome back
+			<a href="{% url 'posts:for_user' username=user.username %}">@{{user.username }}</a>
+		</h2>
+
+    {% endif %}
+			<h2>Subject</h2>
+
+			<p>Welcome to the Subjects Page! Select a Subject with a shared interest!</p>
+	</div>
+	{% if user.is_authenticated %}
+	<a href="{% url 'subjects:create' %}" class="btn btn-md btn-fill btn-warning"><span class="glyphicon glyphicon-plus-sign"></span> Create New Subject!</a>
+	{% endif %}
+</div>
+{% endblock %}
+
+
+{% block subject_content %}
+<div class="col-md-8">
+	<div class="list-group">
+		{% for subject in object_list %}
+		  <a class="list-group-item" href="{% url 'subjects:single' slug=subject.slug %}">
+			     <h3 class="title list-group-item-heading">{{ subject.name }}</h3>
+			<div class="list-group-item-text container-fluid">
+				{{ subject.description_html|safe }}
+				<div class="row">
+					<div class="col-md-4">
+						<span class="badge">{{ subject.members.count }}</span> follower{{ subject.members.count|pluralize }}
+					</div>
+					<div class="col-md-4">
+						<span class="badge">{{ subject.posts.count }}</span> post{{ subject.posts.count|pluralize }}
+					</div>
+				</div>
+			</div>
+		</a>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

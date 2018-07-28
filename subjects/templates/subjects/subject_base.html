@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    {% block presubject %}{% endblock %}
+    {% block subject_content %}{% endblock %}
+    {% block postsubject %}{% endblock %}
+  </div>
+</div>
+
+{% endblock %}

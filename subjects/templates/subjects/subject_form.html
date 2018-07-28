@@ -1,0 +1,11 @@
+{% extends "subjects/subject_base.html" %}
+{% load bootstrap3 %}
+
+{% block subject_content %}
+<h4>Create A New Subject</h4>
+  <form method="POST" action="{% url 'subjects:create' %}" id="subjectForm">
+  	{% csrf_token %}
+  	{% bootstrap_form form %}
+  	<input type="submit" value="Create" class="btn btn-primary btn-large">
+  </form>
+{% endblock %}
